@@ -1,0 +1,24 @@
+<a mat-button routerLink="/"><mat-icon>arrow_back</mat-icon> Back to list</a>
+<h2>Add New Astronaut</h2>
+
+@if (error()) {
+  <p class="error">{{ error() }}</p>
+}
+
+<mat-card>
+  <mat-card-content>
+    <form (ngSubmit)="onSubmit()" class="form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Full Name</mat-label>
+        <input matInput [ngModel]="name()" (ngModelChange)="name.set($event)" name="name" placeholder="Full Name" required />
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="submitting() || !name().trim()">
+          {{ submitting() ? 'Creating...' : 'Create Person' }}
+        </button>
+        <a mat-button routerLink="/">Cancel</a>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

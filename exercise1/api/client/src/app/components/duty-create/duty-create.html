@@ -1,0 +1,44 @@
+<a mat-button [routerLink]="['/person', name]"><mat-icon>arrow_back</mat-icon> Back to {{ name }}</a>
+<h2>Assign Duty — {{ name }}</h2>
+
+@if (error()) {
+  <p class="error">{{ error() }}</p>
+}
+
+<mat-card>
+  <mat-card-content>
+    <form (ngSubmit)="onSubmit()" class="form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Rank</mat-label>
+        <mat-select [ngModel]="rank()" (ngModelChange)="rank.set($event)" name="rank" required>
+          @for (r of ranks; track r) {
+            <mat-option [value]="r">{{ r }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Duty Title</mat-label>
+        <mat-select [ngModel]="dutyTitle()" (ngModelChange)="dutyTitle.set($event)" name="dutyTitle" required>
+          @for (d of dutyTitles; track d) {
+            <mat-option [value]="d">{{ d }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="picker" [ngModel]="dutyStartDate()" (ngModelChange)="dutyStartDate.set($event)" name="dutyStartDate" required />
+        <mat-datepicker-toggle matIconSuffix [for]="picker" />
+        <mat-datepicker #picker />
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="submitting() || !rank() || !dutyTitle() || !dutyStartDate()">
+          {{ submitting() ? 'Assigning...' : 'Assign Duty' }}
+        </button>
+        <a mat-button [routerLink]="['/person', name]">Cancel</a>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

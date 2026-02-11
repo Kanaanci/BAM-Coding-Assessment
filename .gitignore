@@ -1,0 +1,37 @@
+# .NET / C#
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.user
+*.suo
+*.cache
+*.log
+*.nupkg
+packages/
+
+# IDEs
+.idea/
+.vs/
+*.sln.iml
+*.rsuser
+
+# SQLite databases
+*.db
+*.db-shm
+*.db-wal
+
+# Angular / Node
+node_modules/
+wwwroot/
+.angular/
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Secrets
+secrets.json
+appsettings.*.local.json

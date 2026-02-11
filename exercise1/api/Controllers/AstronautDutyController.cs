@@ -15,13 +15,14 @@ namespace StargateAPI.Controllers
         {
             _mediator = mediator;
         }
-
+        
         [HttpGet("{name}")]
         public async Task<IActionResult> GetAstronautDutiesByName(string name)
         {
             try
             {
-                var result = await _mediator.Send(new GetPersonByName()
+                // Change to hit the correct handler (previously GetPersonByName())
+                var result = await _mediator.Send(new GetAstronautDutiesByName()
                 {
                     Name = name
                 });
@@ -39,11 +40,24 @@ namespace StargateAPI.Controllers
             }            
         }
 
+        // Change to add error handling
         [HttpPost("")]
         public async Task<IActionResult> CreateAstronautDuty([FromBody] CreateAstronautDuty request)
         {
+            try
+            {
                 var result = await _mediator.Send(request);
-                return this.GetResponse(result);           
+                return this.GetResponse(result);
+            }
+            catch (Exception ex)
+            {
+                return this.GetResponse(new BaseResponse()
+                {
+                    Message = ex.Message,
+                    Success = false,
+                    ResponseCode = (int)HttpStatusCode.InternalServerError
+                });
+            }
         }
     }
 }
